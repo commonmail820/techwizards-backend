@@ -31,4 +31,4 @@ fi
 
 # Start the server
 echo "🎯 Starting FastAPI server..."
-uvicorn main:app --host 127.0.0.1 --port 8001 --reload 
+uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} 

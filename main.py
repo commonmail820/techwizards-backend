@@ -18,6 +18,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Root endpoint for health checks
+@app.get("/")
+async def root():
+    return {"message": "Mexican Restaurant API is running", "status": "healthy"}
+
 @app.get("/login")
 async def get_logins():
     return await fetch_login_data()
@@ -57,3 +62,10 @@ async def get_users():
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
