@@ -1,0 +1,3 @@
+"""
+Restaurant API models package.
+""" 

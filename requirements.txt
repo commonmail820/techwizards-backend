@@ -1,4 +1,19 @@
-fastapi
-uvicorn
-python-dotenv
-supabase
+# FastAPI and server
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+
+# HTTP client for Supabase
+httpx>=0.25.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Additional dependencies for production
+pydantic>=2.4.0
+python-multipart>=0.0.6
+
+# Optional: For password hashing (when implementing)
+# passlib[bcrypt]>=1.7.4
+
+# Optional: For JWT tokens (when implementing)
+# python-jose[cryptography]>=3.3.0
