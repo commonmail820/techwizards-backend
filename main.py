@@ -1,6 +1,11 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from supabase_client import fetch_login_data, insert_login_data, delete_login_data, update_login_data, signup_user, fetch_users, login_user
+import os
+
+print("🚀 Starting Mexican Restaurant API...")
+print(f"🌍 Environment: {'Production' if os.getenv('PORT') else 'Development'}")
+print(f"🔌 Port: {os.getenv('PORT', '8000')}")
 
 app = FastAPI(title="Mexican Restaurant API", version="1.0.0")
 
@@ -20,6 +25,8 @@ app.add_middleware(
 
 # Root endpoint for health checks
 @app.get("/")
+@app.head("/")
+@app.options("/")
 async def root():
     return {"message": "Mexican Restaurant API is running", "status": "healthy"}
 
@@ -60,12 +67,23 @@ async def get_users():
 
 # Add a health check endpoint
 @app.get("/health")
+@app.head("/health")
 async def health_check():
     return {"status": "healthy"}
 
+# Add additional common health check endpoints
+@app.get("/healthz")
+@app.head("/healthz")
+async def health_check_k8s():
+    return {"status": "healthy"}
+
+@app.get("/ping")
+@app.head("/ping")
+async def ping():
+    return {"status": "pong"}
+
 if __name__ == "__main__":
     import uvicorn
-    import os
     
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run("main:app", host="0.0.0.0", port=port, reload=False)
